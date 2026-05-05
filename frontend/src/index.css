@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface-0: #ffffff;
+  --surface-1: #f8f9fb;
+  --surface-2: #f0f1f4;
+  --surface-3: #e4e5ea;
+  --text-primary: #0f1019;
+  --text-secondary: #5a5d6e;
+  --text-tertiary: #8e91a3;
+  --border-color: #e4e5ea;
+  --brand: #3366ff;
+  --brand-light: #eef4ff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+.dark {
+  --surface-0: #0c0d14;
+  --surface-1: #13141f;
+  --surface-2: #1c1d2b;
+  --surface-3: #272838;
+  --text-primary: #f0f1f4;
+  --text-secondary: #9b9db0;
+  --text-tertiary: #6b6d80;
+  --border-color: #272838;
+  --brand: #598dff;
+  --brand-light: #162cb615;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* custom utility classes */
+@layer components {
+  .card {
+    @apply bg-[var(--surface-0)] border border-[var(--border-color)] rounded-xl;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-200 hover:border-brand-300 hover:shadow-sm;
+  }
+
+  .btn-primary {
+    @apply px-5 py-2.5 bg-brand-500 text-white font-medium rounded-lg 
+           transition-all duration-200 hover:bg-brand-600 active:scale-[0.98]
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-5 py-2.5 border border-[var(--border-color)] text-[var(--text-primary)]
+           font-medium rounded-lg bg-[var(--surface-0)]
+           transition-all duration-200 hover:bg-[var(--surface-2)] active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 text-[var(--text-secondary)] font-medium rounded-lg
+           transition-all duration-200 hover:bg-[var(--surface-2)] hover:text-[var(--text-primary)];
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-[var(--surface-0)] border border-[var(--border-color)]
+           rounded-lg text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)]
+           focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-400
+           transition-all duration-200;
+  }
+
+  .textarea-field {
+    @apply input-field resize-none;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400;
+  }
+
+  .badge-info {
+    @apply badge bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400;
+  }
+
+  .badge-danger {
+    @apply badge bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  .section-title {
+    @apply font-display text-lg font-semibold text-[var(--text-primary)];
+  }
+
+  .text-muted {
+    @apply text-[var(--text-secondary)];
+  }
+
+  .stat-number {
+    @apply font-display text-3xl font-bold text-[var(--text-primary)];
+  }
+
+  .loading-pulse {
+    @apply animate-pulse bg-[var(--surface-2)] rounded;
+  }
+}
+
+/* animations */
+.page-enter {
+  animation: fadeIn 0.4s ease-out, slideUp 0.4s ease-out;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin-slow 1s linear infinite;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+
+/* quiz option animation */
+.quiz-option {
+  @apply card-hover p-4 cursor-pointer;
+  transition: all 0.2s ease;
+}
+.quiz-option:hover {
+  transform: translateY(-1px);
+}
+.quiz-option.selected {
+  @apply border-brand-500 bg-brand-50 dark:bg-brand-900/20;
+}
+.quiz-option.correct {
+  @apply border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20;
+}
+.quiz-option.wrong {
+  @apply border-red-500 bg-red-50 dark:bg-red-900/20;
+}
